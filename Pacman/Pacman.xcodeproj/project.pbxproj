@@ -18,6 +18,8 @@
 		F565A0E426FB91F5000CE0EF /* PacMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E326FB91F5000CE0EF /* PacMan.swift */; };
 		F565A0E626FBC1BE000CE0EF /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E526FBC1BE000CE0EF /* Food.swift */; };
 		F565A0E826FBC1E9000CE0EF /* TypeMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E726FBC1E9000CE0EF /* TypeMask.swift */; };
+		F565A0EA26FBC402000CE0EF /* Ghost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E926FBC402000CE0EF /* Ghost.swift */; };
+		F565A0EC26FBCE20000CE0EF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0EB26FBCE20000CE0EF /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		F565A0E326FB91F5000CE0EF /* PacMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacMan.swift; sourceTree = "<group>"; };
 		F565A0E526FBC1BE000CE0EF /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		F565A0E726FBC1E9000CE0EF /* TypeMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeMask.swift; sourceTree = "<group>"; };
+		F565A0E926FBC402000CE0EF /* Ghost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ghost.swift; sourceTree = "<group>"; };
+		F565A0EB26FBCE20000CE0EF /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				F565A0E326FB91F5000CE0EF /* PacMan.swift */,
 				F565A0E526FBC1BE000CE0EF /* Food.swift */,
 				F565A0E726FBC1E9000CE0EF /* TypeMask.swift */,
+				F565A0E926FBC402000CE0EF /* Ghost.swift */,
+				F565A0EB26FBCE20000CE0EF /* GameOverScene.swift */,
 			);
 			path = Pacman;
 			sourceTree = "<group>";
@@ -153,11 +159,13 @@
 			files = (
 				F565A0E826FBC1E9000CE0EF /* TypeMask.swift in Sources */,
 				F55CC1A626F24C54008971C8 /* GameScene.swift in Sources */,
+				F565A0EC26FBCE20000CE0EF /* GameOverScene.swift in Sources */,
 				F55CC1A826F24C54008971C8 /* GameViewController.swift in Sources */,
 				F565A0E026FB91B3000CE0EF /* Wall.swift in Sources */,
 				F565A0DE26FB913E000CE0EF /* Map.swift in Sources */,
 				F565A0E426FB91F5000CE0EF /* PacMan.swift in Sources */,
 				F565A0E626FBC1BE000CE0EF /* Food.swift in Sources */,
+				F565A0EA26FBC402000CE0EF /* Ghost.swift in Sources */,
 				F55CC1A026F24C54008971C8 /* AppDelegate.swift in Sources */,
 				F565A0E226FB91E7000CE0EF /* Direction.swift in Sources */,
 			);

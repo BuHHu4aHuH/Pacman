@@ -57,6 +57,30 @@ class GameScene: SKScene {
                     pacman.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
                     pacman.animate()
                     gameField.addChild(pacman)
+                } else if element == 8 {
+                    let ghost = Ghost(type: .blinky, size: map.tileSize)
+                    ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
+                    ghost.texture = SKTexture(imageNamed:"pacman-2.svg")
+                    gameField.addChild(ghost)
+                    ghost.move(map: map)
+                } else if element == 16 {
+                    let ghost = Ghost(type: .pinky, size: map.tileSize)
+                    ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
+                    ghost.texture = SKTexture(imageNamed:"pacman.svg")
+                    gameField.addChild(ghost)
+                    ghost.move(map: map)
+                } else if element == 32 {
+                    let ghost = Ghost(type: .inky, size: map.tileSize)
+                    ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
+                    ghost.texture = SKTexture(imageNamed:"pacman-3.svg")
+                    gameField.addChild(ghost)
+                    ghost.move(map: map)
+                } else if element == 64 {
+                    let ghost = Ghost(type: .clyde, size: map.tileSize)
+                    ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
+                    ghost.texture = SKTexture(imageNamed:"pacman-4.svg")
+                    gameField.addChild(ghost)
+                    ghost.move(map: map)
                 }
             }
         }
@@ -168,5 +192,8 @@ extension GameScene: SKPhysicsContactDelegate {
     }
     
     private func gameOver() {
+        let scene = GameOverScene(size: size)
+        scene.scaleMode = .aspectFill
+        view?.presentScene(scene, transition: .fade(withDuration: 0.5))
     }
 }
