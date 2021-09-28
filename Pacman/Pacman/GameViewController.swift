@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
-            let scene = GameScene(size: CGSize(width: 250, height: 250))
+            let scene = GameScene(size: CGSize(width: view.bounds.size.width, height: view.bounds.size.height), map: Map(map: Map.generateMap(), number: 1, tileSize: .init(width: 10, height: 10)), score: 0)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
             view.ignoresSiblingOrder = true

@@ -15,11 +15,7 @@ class PacMan: SKSpriteNode {
     private var bottomSemicircle: SKShapeNode!
 
     var currentDirection: Direction = .right
-    private let currentSpeed: CGFloat = 5
-
-    let chompActionSound: SKAction = {
-        return SKAction.playSoundFileNamed("pacman_chomp", waitForCompletion: false)
-    }()
+    private let currentSpeed: CGFloat = 10
 
     init(size: CGSize) {
         super.init(texture: nil, color: .clear, size: size)
@@ -74,7 +70,6 @@ class PacMan: SKSpriteNode {
 
     func eat(food: Food) {
         food.run(SKAction.removeFromParent())
-        run(chompActionSound)
     }
 
     required init?(coder aDecoder: NSCoder) {

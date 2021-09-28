@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34B08FF4A3ED43D18807729D /* Pods_Pacman.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E4110BC810ABEB4E8ED9C22 /* Pods_Pacman.framework */; };
+		F515153027038EA70007CC21 /* BFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F515152F27038EA70007CC21 /* BFS.swift */; };
+		F515153327038ECB0007CC21 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = F515153227038ECB0007CC21 /* Algorithm.swift */; };
+		F515153527038EE30007CC21 /* DFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F515153427038EE30007CC21 /* DFS.swift */; };
+		F515153727038EFB0007CC21 /* UCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F515153627038EFB0007CC21 /* UCS.swift */; };
+		F5151539270390350007CC21 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5151538270390350007CC21 /* PriorityQueue.swift */; };
 		F55CC1A026F24C54008971C8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC19F26F24C54008971C8 /* AppDelegate.swift */; };
 		F55CC1A626F24C54008971C8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC1A526F24C54008971C8 /* GameScene.swift */; };
 		F55CC1A826F24C54008971C8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC1A726F24C54008971C8 /* GameViewController.swift */; };
@@ -23,6 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E4110BC810ABEB4E8ED9C22 /* Pods_Pacman.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pacman.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		360506CCDF1D6C2E88723ED2 /* Pods-Pacman.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pacman.debug.xcconfig"; path = "Target Support Files/Pods-Pacman/Pods-Pacman.debug.xcconfig"; sourceTree = "<group>"; };
+		9E4C62EC848EC5D5E21D7E9E /* Pods-Pacman.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pacman.release.xcconfig"; path = "Target Support Files/Pods-Pacman/Pods-Pacman.release.xcconfig"; sourceTree = "<group>"; };
+		F515152F27038EA70007CC21 /* BFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFS.swift; sourceTree = "<group>"; };
+		F515153227038ECB0007CC21 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
+		F515153427038EE30007CC21 /* DFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFS.swift; sourceTree = "<group>"; };
+		F515153627038EFB0007CC21 /* UCS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCS.swift; sourceTree = "<group>"; };
+		F5151538270390350007CC21 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		F55CC19C26F24C54008971C8 /* Pacman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pacman.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F55CC19F26F24C54008971C8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F55CC1A526F24C54008971C8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -45,17 +59,56 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B08FF4A3ED43D18807729D /* Pods_Pacman.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41B0105056A3ADFCE4F75341 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1E4110BC810ABEB4E8ED9C22 /* Pods_Pacman.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A97D29D563CAD8983D9429DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				360506CCDF1D6C2E88723ED2 /* Pods-Pacman.debug.xcconfig */,
+				9E4C62EC848EC5D5E21D7E9E /* Pods-Pacman.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F515152E27038E9C0007CC21 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				F515152F27038EA70007CC21 /* BFS.swift */,
+				F515153427038EE30007CC21 /* DFS.swift */,
+				F515153627038EFB0007CC21 /* UCS.swift */,
+			);
+			path = Algorithms;
+			sourceTree = "<group>";
+		};
+		F515153127038EB90007CC21 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F515153227038ECB0007CC21 /* Algorithm.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		F55CC19326F24C54008971C8 = {
 			isa = PBXGroup;
 			children = (
 				F55CC19E26F24C54008971C8 /* Pacman */,
 				F55CC19D26F24C54008971C8 /* Products */,
+				A97D29D563CAD8983D9429DC /* Pods */,
+				41B0105056A3ADFCE4F75341 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +123,8 @@
 		F55CC19E26F24C54008971C8 /* Pacman */ = {
 			isa = PBXGroup;
 			children = (
+				F515153127038EB90007CC21 /* Protocols */,
+				F515152E27038E9C0007CC21 /* Algorithms */,
 				F55CC19F26F24C54008971C8 /* AppDelegate.swift */,
 				F55CC1A526F24C54008971C8 /* GameScene.swift */,
 				F55CC1A726F24C54008971C8 /* GameViewController.swift */,
@@ -84,6 +139,7 @@
 				F565A0E726FBC1E9000CE0EF /* TypeMask.swift */,
 				F565A0EF26FC5359000CE0EF /* GameOverScene.swift */,
 				F565A0E926FBC402000CE0EF /* Ghost.swift */,
+				F5151538270390350007CC21 /* PriorityQueue.swift */,
 			);
 			path = Pacman;
 			sourceTree = "<group>";
@@ -95,6 +151,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F55CC1B126F24C55008971C8 /* Build configuration list for PBXNativeTarget "Pacman" */;
 			buildPhases = (
+				D00AFE72BF56929FF74B5606 /* [CP] Check Pods Manifest.lock */,
 				F55CC19826F24C54008971C8 /* Sources */,
 				F55CC19926F24C54008971C8 /* Frameworks */,
 				F55CC19A26F24C54008971C8 /* Resources */,
@@ -152,6 +209,31 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D00AFE72BF56929FF74B5606 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pacman-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F55CC19826F24C54008971C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -162,12 +244,17 @@
 				F565A0F026FC5359000CE0EF /* GameOverScene.swift in Sources */,
 				F55CC1A826F24C54008971C8 /* GameViewController.swift in Sources */,
 				F565A0E026FB91B3000CE0EF /* Wall.swift in Sources */,
+				F5151539270390350007CC21 /* PriorityQueue.swift in Sources */,
+				F515153727038EFB0007CC21 /* UCS.swift in Sources */,
+				F515153527038EE30007CC21 /* DFS.swift in Sources */,
 				F565A0DE26FB913E000CE0EF /* Map.swift in Sources */,
 				F565A0E426FB91F5000CE0EF /* PacMan.swift in Sources */,
 				F565A0E626FBC1BE000CE0EF /* Food.swift in Sources */,
 				F565A0EA26FBC402000CE0EF /* Ghost.swift in Sources */,
 				F55CC1A026F24C54008971C8 /* AppDelegate.swift in Sources */,
+				F515153327038ECB0007CC21 /* Algorithm.swift in Sources */,
 				F565A0E226FB91E7000CE0EF /* Direction.swift in Sources */,
+				F515153027038EA70007CC21 /* BFS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +390,7 @@
 		};
 		F55CC1B226F24C55008971C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 360506CCDF1D6C2E88723ED2 /* Pods-Pacman.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -322,6 +410,7 @@
 		};
 		F55CC1B326F24C55008971C8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E4C62EC848EC5D5E21D7E9E /* Pods-Pacman.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
