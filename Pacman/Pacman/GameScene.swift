@@ -20,6 +20,7 @@ class GameScene: SKScene {
     private var lastUpdateTime: TimeInterval = 0
     private var score: Int = 0
     private var timeDelta: CGFloat = 0
+    private var scoreLabel: SKLabelNode!
     
     let map: Map
     
@@ -40,6 +41,12 @@ class GameScene: SKScene {
         gameField.strokeColor = .clear
         gameField.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(gameField)
+
+        scoreLabel = SKLabelNode(text: "Score: \(0)")
+        scoreLabel.color = .white
+        scoreLabel.position = CGPoint(x: size.width - 100, y: size.height - 235)
+        scoreLabel.fontSize = 16
+        addChild(scoreLabel)
         
         physicsWorld.contactDelegate = self
         
@@ -58,25 +65,25 @@ class GameScene: SKScene {
                     pacman.animate()
                     gameField.addChild(pacman)
                 } else if element == 8 {
-                    let ghost = Ghost(type: .blinky, size: map.tileSize)
+                    let ghost = Ghost(type: .gost1, size: map.tileSize)
                     ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
                     ghost.texture = SKTexture(imageNamed:"pacman-2.svg")
                     gameField.addChild(ghost)
                     ghost.move(map: map)
                 } else if element == 16 {
-                    let ghost = Ghost(type: .pinky, size: map.tileSize)
+                    let ghost = Ghost(type: .gost2, size: map.tileSize)
                     ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
                     ghost.texture = SKTexture(imageNamed:"pacman.svg")
                     gameField.addChild(ghost)
                     ghost.move(map: map)
                 } else if element == 32 {
-                    let ghost = Ghost(type: .inky, size: map.tileSize)
+                    let ghost = Ghost(type: .gost3, size: map.tileSize)
                     ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
                     ghost.texture = SKTexture(imageNamed:"pacman-3.svg")
                     gameField.addChild(ghost)
                     ghost.move(map: map)
                 } else if element == 64 {
-                    let ghost = Ghost(type: .clyde, size: map.tileSize)
+                    let ghost = Ghost(type: .gost4, size: map.tileSize)
                     ghost.position = .init(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
                     ghost.texture = SKTexture(imageNamed:"pacman-4.svg")
                     gameField.addChild(ghost)
@@ -189,11 +196,15 @@ extension GameScene: SKPhysicsContactDelegate {
     
     private func increaseScore(by amount: Int) {
         score += amount
+        scoreLabel.text = "Score: \(score)"
+        if score == 3310 {
+            gameOver()
+        }
     }
     
     private func gameOver() {
-        let scene = GameOverScene(size: size)
-        scene.scaleMode = .aspectFill
-        view?.presentScene(scene, transition: .fade(withDuration: 0.5))
+        let gameScene = GameOverScene()
+        gameScene.scaleMode = .aspectFill
+        view?.presentScene(gameScene, transition: .doorsOpenVertical(withDuration: 0.5))
     }
 }

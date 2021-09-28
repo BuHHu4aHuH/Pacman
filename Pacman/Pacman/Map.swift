@@ -23,7 +23,6 @@ class Map: Equatable {
         self.tileSize = tileSize
     }
 
-    // 4 - obstacle, 2 - food, 1 - pacman, 0 - empty, 8 - Blinky, 16 - Pinky, 32 - Inky, 64 - Clyde
     static let levelMap1: [[UInt32]] = [
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4],

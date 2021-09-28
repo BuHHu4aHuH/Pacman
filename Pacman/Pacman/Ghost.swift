@@ -10,10 +10,10 @@ import SpriteKit
 
 class Ghost: SKSpriteNode {
     enum GhostType: UInt32 {
-        case blinky = 8
-        case pinky = 16
-        case inky = 32
-        case clyde = 64
+        case gost1 = 8
+        case gost2 = 16
+        case gost3 = 32
+        case gost4 = 64
     }
 
     private let type: GhostType
@@ -26,14 +26,14 @@ class Ghost: SKSpriteNode {
         physicsBody?.affectedByGravity = false
 
         switch type {
-        case .blinky:
-            physicsBody?.categoryBitMask = TypeMask.blinkyCategory
-        case .pinky:
-            physicsBody?.categoryBitMask = TypeMask.pinkyCategory
-        case .inky:
-            physicsBody?.categoryBitMask = TypeMask.inkyCategory
-        case .clyde:
-            physicsBody?.categoryBitMask = TypeMask.clydeCategory
+        case .gost1:
+            physicsBody?.categoryBitMask = TypeMask.gost1Category
+        case .gost2:
+            physicsBody?.categoryBitMask = TypeMask.gost2Category
+        case .gost3:
+            physicsBody?.categoryBitMask = TypeMask.gost3Category
+        case .gost4:
+            physicsBody?.categoryBitMask = TypeMask.gost4Category
         }
 
         physicsBody?.collisionBitMask = TypeMask.obstacleCategory

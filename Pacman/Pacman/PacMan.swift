@@ -15,7 +15,7 @@ class PacMan: SKSpriteNode {
     private var bottomSemicircle: SKShapeNode!
 
     var currentDirection: Direction = .right
-    private let currentSpeed: CGFloat = 15
+    private let currentSpeed: CGFloat = 5
 
     let chompActionSound: SKAction = {
         return SKAction.playSoundFileNamed("pacman_chomp", waitForCompletion: false)
@@ -42,7 +42,7 @@ class PacMan: SKSpriteNode {
         physicsBody?.affectedByGravity = false
         physicsBody?.categoryBitMask = TypeMask.pacmanCategory
         physicsBody?.collisionBitMask = TypeMask.obstacleCategory
-        physicsBody?.contactTestBitMask = TypeMask.foodCategory | TypeMask.blinkyCategory | TypeMask.inkyCategory | TypeMask.clydeCategory
+        physicsBody?.contactTestBitMask = TypeMask.foodCategory | TypeMask.gost1Category | TypeMask.gost3Category | TypeMask.gost4Category
 
         name = "pacman"
     }
