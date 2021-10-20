@@ -18,16 +18,13 @@ class GameScene: SKScene {
     private var pacman: PacMan!
     private var gameField: SKShapeNode!
     private var scoreLabel: SKLabelNode!
-    private var changeAlgorithmLabel: SKLabelNode!
     private var searchLabel: SKLabelNode!
     private var score: Int
 
-    private var algoLabel: SKLabelNode!
     private var timeLabel: SKLabelNode!
 
     private var lastUpdateTime: TimeInterval = 0
     private var dt: CGFloat = 0
-    private var allDt: CGFloat = 0
 
     private var moveAmtX: CGFloat = 0
     private var moveAmtY: CGFloat = 0
@@ -36,9 +33,8 @@ class GameScene: SKScene {
 
     let map: Map
 
-    private var isSearching: Bool = false
-    private let algorithms: [Algorithm] = [DFS(), BFS(), UCS()]
-    private var currentAlgorithmIndex = 2
+    private var randomFoodPoint: Point?
+    private var ghosts: [Ghost] = []
 
     init(size: CGSize, map: Map, score: Int = 0) {
         self.map = map
@@ -61,25 +57,11 @@ class GameScene: SKScene {
         scoreLabel.fontSize = 16
         addChild(scoreLabel)
 
-        algoLabel = SKLabelNode(text: "\(algorithms[currentAlgorithmIndex].name)")
-        algoLabel.color = .white
-        algoLabel.position = CGPoint(x: 50, y: size.height - 40)
-        algoLabel.fontSize = 16
-        addChild(algoLabel)
-
-        timeLabel = SKLabelNode(text: "\(allDt)")
+        timeLabel = SKLabelNode(text: "\(0)")
         timeLabel.color = .white
         timeLabel.position = CGPoint(x: 100, y: size.height - 40)
         timeLabel.fontSize = 13
         addChild(timeLabel)
-
-        changeAlgorithmLabel = SKLabelNode(text: "Change algorithm")
-        changeAlgorithmLabel.name = "change_algorithm"
-        changeAlgorithmLabel.color = .white
-        changeAlgorithmLabel.fontName = "AvenirNext-Bold"
-        changeAlgorithmLabel.fontSize = 17
-        changeAlgorithmLabel.position = CGPoint(x: 200, y: 20)
-        addChild(changeAlgorithmLabel)
 
         searchLabel = SKLabelNode(text: "Search")
         searchLabel.name = "search"
@@ -125,7 +107,7 @@ class GameScene: SKScene {
                     gameField.addChild(ghost)
                     ghost.texture = SKTexture(imageNamed:"pacman-2.svg")
                     ghost.zPosition = 1
-                    ghost.move(map: map)
+                    ghosts.append(ghost)
                 }
 
                 if element & TypeMask.gost2Category != 0 {
@@ -135,7 +117,7 @@ class GameScene: SKScene {
                     gameField.addChild(ghost)
                     ghost.texture = SKTexture(imageNamed:"pacman.svg")
                     ghost.zPosition = 1
-                    ghost.move(map: map)
+                    ghosts.append(ghost)
                 }
 
                 if element & TypeMask.gost3Category != 0 {
@@ -145,7 +127,7 @@ class GameScene: SKScene {
                     gameField.addChild(ghost)
                     ghost.texture = SKTexture(imageNamed:"pacman-3.svg")
                     ghost.zPosition = 1
-                    ghost.move(map: map)
+                    ghosts.append(ghost)
                 }
 
                 if element & TypeMask.gost4Category != 0 {
@@ -155,7 +137,7 @@ class GameScene: SKScene {
                     gameField.addChild(ghost)
                     ghost.texture = SKTexture(imageNamed:"pacman-4.svg")
                     ghost.zPosition = 1
-                    ghost.move(map: map)
+                    ghosts.append(ghost)
                 }
             }
         }
@@ -165,27 +147,6 @@ class GameScene: SKScene {
         let touchInView = recognizer.location(in: recognizer.view)
         let touch = convertPoint(fromView: touchInView)
         let nodeArray = nodes(at: touch)
-        for node in nodeArray {
-            if node.name == "change_algorithm" {
-                guard isSearching else { return }
-                currentAlgorithmIndex += 1
-                if currentAlgorithmIndex >= algorithms.count {
-                    currentAlgorithmIndex = 0
-                }
-                algoLabel.text = "\(algorithms[currentAlgorithmIndex].name)"
-                search()
-            } else if node.name == "search" {
-                if isSearching {
-                    gameField.children.filter({ $0.name == "path" }).forEach({ $0.removeFromParent() })
-                    isSearching = false
-                    pacman.isPaused = isSearching
-                    gameField.children.filter({ $0.name == "ghost" }).forEach({ $0.isPaused = isSearching })
-                    currentAlgorithmIndex = 0
-                } else {
-                    search()
-                }
-            }
-        }
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -195,23 +156,33 @@ class GameScene: SKScene {
             dt = 0
         }
         lastUpdateTime = currentTime
-        allDt += dt
-
-        guard !isSearching, allDt > 1 else { return }
 
         let previousPosition = pacman.position
         let oldJ = Int(((previousPosition.x + gameField.frame.width / 2 - map.tileSize.width / 2) / map.tileSize.width).rounded(.toNearestOrEven))
         let oldI = Int(((previousPosition.y + gameField.frame.height / 2 - map.tileSize.height / 2) / map.tileSize.height).rounded(.toNearestOrEven))
 
-        let newPosition = pacman.move(direction: pacman.currentDirection, timeDelta: dt)
-        let j = Int(((newPosition.x + gameField.frame.width / 2 - map.tileSize.width / 2) / map.tileSize.width).rounded(.toNearestOrEven))
-        let i = Int(((newPosition.y + gameField.frame.height / 2 - map.tileSize.height / 2) / map.tileSize.height).rounded(.toNearestOrEven))
-
-        if oldI >= 0 && oldI < map.map.count && oldJ >= 0 && oldI < map.map[0].count {
-            map.map[map.map.count - oldI - 1][oldJ] = map.map[map.map.count - oldI - 1][oldJ] & (~(TypeMask.pacmanCategory | TypeMask.foodCategory))
+        ghosts.forEach { ghost in
+            if !ghost.hasActions() {
+                ghost.move(map: map, to: Point(i: map.map.count - oldI - 1, j: oldJ))
+            }
         }
-        if i >= 0 && i < map.map.count && j >= 0 && j < map.map[0].count {
-            map.map[map.map.count - i - 1][j] = (map.map[map.map.count - oldI - 1][oldJ] | TypeMask.pacmanCategory) & (~TypeMask.foodCategory)
+
+        if let foodPoint = randomFoodPoint {
+            if foodPoint.i == map.map.count - oldI - 1 && foodPoint.j == oldJ {
+                randomFoodPoint = nil
+            } else {
+                if !pacman.hasActions() {
+                    pacman.move(map: map, to: Point(i: foodPoint.i, j: foodPoint.j))
+                }
+            }
+        } else {
+            var randI = Int.random(in: 0..<map.map.count)
+            var randJ = Int.random(in: 0..<map.map[randI].count)
+            while map.map[randI][randJ] & TypeMask.foodCategory == 0 {
+                randI = Int.random(in: 0..<map.map.count)
+                randJ = Int.random(in: 0..<map.map[randI].count)
+            }
+            randomFoodPoint = Point(i: randI, j: randJ)
         }
 
         checkWin()
@@ -255,43 +226,6 @@ class GameScene: SKScene {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func search() {
-        gameField.children.filter({ $0.name == "path" }).forEach({ $0.removeFromParent() })
-        isSearching = true
-        pacman.isPaused = isSearching
-        gameField.children.filter({ $0.name == "ghost" }).forEach({ $0.isPaused = isSearching })
-        guard isSearching else { return }
-
-        let pacmanJ = Int(((pacman.position.x + gameField.frame.width / 2 - map.tileSize.width / 2) / map.tileSize.width).rounded(.toNearestOrEven))
-        let pacmanI = map.map.count - Int(((pacman.position.y + gameField.frame.height / 2 - map.tileSize.height / 2) / map.tileSize.height).rounded(.toNearestOrEven)) - 1
-
-        var ghostsPoints = [Point]()
-
-        gameField.children.filter({ $0.name == "ghost" }).forEach({
-            let ghostJ = Int((($0.position.x + gameField.frame.width / 2 - map.tileSize.width / 2) / map.tileSize.width).rounded(.toNearestOrEven))
-            let ghostI = map.map.count - Int((($0.position.y + gameField.frame.height / 2 - map.tileSize.height / 2) / map.tileSize.height).rounded(.toNearestOrEven)) - 1
-            ghostsPoints.append(Point(i: ghostI, j: ghostJ))
-        })
-
-        var allTime: CFAbsoluteTime = 0
-
-        ghostsPoints.forEach { point in
-            let timer = ParkBenchTimer()
-            let path = algorithms[currentAlgorithmIndex].calculatePath(map: map.map, pacmanPosition: Point(i: pacmanI, j: pacmanJ), ghostPosition: point)
-            allTime += timer.stop()
-
-            path.forEach { point in
-                let node = SKSpriteNode(color: .blue, size: .init(width: 10, height: 10))
-                node.position = .init(x: CGFloat(point.j) * map.tileSize.width + map.tileSize.width / 2 - gameField.frame.width / 2, y: CGFloat(map.map.count - point.i - 1) * map.tileSize.height + map.tileSize.height / 2 - gameField.frame.height / 2)
-                node.zPosition = 0
-                node.name = "path"
-                gameField.addChild(node)
-            }
-        }
-
-        timeLabel.text = String(format: "%.2fms", allTime * 1000)
     }
 }
 

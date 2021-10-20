@@ -26,6 +26,7 @@
 		F565A0E826FBC1E9000CE0EF /* TypeMask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E726FBC1E9000CE0EF /* TypeMask.swift */; };
 		F565A0EA26FBC402000CE0EF /* Ghost.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0E926FBC402000CE0EF /* Ghost.swift */; };
 		F565A0F026FC5359000CE0EF /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F565A0EF26FC5359000CE0EF /* GameOverScene.swift */; };
+		F5BBD9CB2720790B0006A63B /* AStar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BBD9CA2720790B0006A63B /* AStar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		F565A0E726FBC1E9000CE0EF /* TypeMask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeMask.swift; sourceTree = "<group>"; };
 		F565A0E926FBC402000CE0EF /* Ghost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ghost.swift; sourceTree = "<group>"; };
 		F565A0EF26FC5359000CE0EF /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		F5BBD9CA2720790B0006A63B /* AStar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AStar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +82,6 @@
 				360506CCDF1D6C2E88723ED2 /* Pods-Pacman.debug.xcconfig */,
 				9E4C62EC848EC5D5E21D7E9E /* Pods-Pacman.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -90,6 +91,7 @@
 				F515152F27038EA70007CC21 /* BFS.swift */,
 				F515153427038EE30007CC21 /* DFS.swift */,
 				F515153627038EFB0007CC21 /* UCS.swift */,
+				F5BBD9CA2720790B0006A63B /* AStar.swift */,
 			);
 			path = Algorithms;
 			sourceTree = "<group>";
@@ -240,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F565A0E826FBC1E9000CE0EF /* TypeMask.swift in Sources */,
+				F5BBD9CB2720790B0006A63B /* AStar.swift in Sources */,
 				F55CC1A626F24C54008971C8 /* GameScene.swift in Sources */,
 				F565A0F026FC5359000CE0EF /* GameOverScene.swift in Sources */,
 				F55CC1A826F24C54008971C8 /* GameViewController.swift in Sources */,

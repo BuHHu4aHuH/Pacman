@@ -10,7 +10,7 @@ import Foundation
 class BFS: Algorithm {
     let name: String = "BFS"
 
-    func calculatePath(map: [[UInt32]], pacmanPosition: Point, ghostPosition: Point) -> [Point] {
+    func calculatePath(map: [[UInt32]], from: Point, to: Point) -> [Point] {
         var points = [Point]()
 
         var path = [Point: Point]()
@@ -18,12 +18,12 @@ class BFS: Algorithm {
         var queue = [Point]()
         var visited = Set<Point>()
 
-        queue.append(pacmanPosition)
+        queue.append(from)
 
         while !queue.isEmpty {
             let top = queue.removeFirst()
             visited.insert(top)
-            if top == ghostPosition {
+            if top == to {
                 break
             }
             let neighbors = Map.getNeighbors(map: map, point: top)
@@ -35,7 +35,7 @@ class BFS: Algorithm {
             })
         }
 
-        var currentPoint = ghostPosition
+        var currentPoint = to
         while path[currentPoint] != nil {
             points.append(currentPoint)
             currentPoint = path[currentPoint]!

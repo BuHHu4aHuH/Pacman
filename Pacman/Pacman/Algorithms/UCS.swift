@@ -19,19 +19,19 @@ class UCS: Algorithm {
         }
     }
 
-    func calculatePath(map: [[UInt32]], pacmanPosition: Point, ghostPosition: Point) -> [Point] {
+    func calculatePath(map: [[UInt32]], from: Point, to: Point) -> [Point] {
         var points = [Point]()
 
         var path = [Point: Point]()
 
         var queue = PriorityQueue<Node>(order: { $0.cost > $1.cost })
-        queue.push(Node(point: pacmanPosition, cost: 0))
+        queue.push(Node(point: from, cost: 0))
         var visited = Set<Point>()
 
         while !queue.isEmpty {
             let node = queue.pop()!
 
-            if node.point == ghostPosition {
+            if node.point == to {
                 break
             }
 
@@ -48,14 +48,11 @@ class UCS: Algorithm {
             visited.insert(node.point)
         }
 
-        var currentPoint = ghostPosition
+        var currentPoint = to
         while path[currentPoint] != nil {
             points.append(currentPoint)
             currentPoint = path[currentPoint]!
         }
-
-        points.append(currentPoint)
-
-        return points
+        return points.reversed()
     }
 }

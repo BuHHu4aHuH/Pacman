@@ -10,7 +10,7 @@ import Foundation
 class DFS: Algorithm {
     let name: String = "DFS"
 
-    func calculatePath(map: [[UInt32]], pacmanPosition: Point, ghostPosition: Point) -> [Point] {
+    func calculatePath(map: [[UInt32]], from: Point, to: Point) -> [Point] {
         var points = [Point]()
 
         var path = [Point: Point]()
@@ -18,12 +18,12 @@ class DFS: Algorithm {
         var stack = [Point]()
         var visited = Set<Point>()
 
-        stack.append(pacmanPosition)
+        stack.append(from)
 
         while !stack.isEmpty {
             let top = stack.removeFirst()
             visited.insert(top)
-            if top == ghostPosition {
+            if top == to {
                 break
             }
             let neighbors = Map.getNeighbors(map: map, point: top)
@@ -35,7 +35,7 @@ class DFS: Algorithm {
             })
         }
 
-        var currentPoint = ghostPosition
+        var currentPoint = to
         while path[currentPoint] != nil {
             points.append(currentPoint)
             currentPoint = path[currentPoint]!

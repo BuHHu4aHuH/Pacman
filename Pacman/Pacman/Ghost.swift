@@ -42,64 +42,22 @@ class Ghost: SKSpriteNode {
         name = "ghost"
     }
 
-    func move(map: Map) {
-        let randomDirection = Direction(rawValue: Int.random(in: 0...3))!
-
+    func move(map: Map, to: Point) {
         let oldJ = Int(((position.x + parent!.frame.width / 2 - map.tileSize.width / 2) / map.tileSize.width).rounded(.toNearestOrEven))
         let oldI = Int(((position.y + parent!.frame.height / 2 - map.tileSize.height / 2) / map.tileSize.height).rounded(.toNearestOrEven))
 
         map.map[map.map.count - oldI - 1][oldJ] = (map.map[map.map.count - oldI - 1][oldJ] & (~type.rawValue))
 
-        var i: Int = 0
-        var j: Int = 0
-
-        var isOk = true
-
-        if randomDirection == .up {
-            if oldI < map.map.count - 1 {
-                i = oldI + 1
-                j = oldJ
-            } else {
-                isOk = false
-            }
-        } else if randomDirection == .down {
-            if oldI > 0 {
-                i = oldI - 1
-                j = oldJ
-            } else {
-                isOk = false
-            }
-        } else if randomDirection == .left {
-            if oldJ > 0 {
-                i = oldI
-                j = oldJ - 1
-            } else {
-                isOk = false
-            }
-        } else if randomDirection == .right {
-            if oldJ < map.map[0].count - 1 {
-                i = oldI
-                j = oldJ + 1
-            } else {
-                isOk = false
-            }
-        }
-
-        guard isOk && (map.map[map.map.count - i - 1][j] & TypeMask.obstacleCategory == 0) else {
-            move(map: map)
-            return
-        }
+        let path = UCS().calculatePath(map: map.map, from: Point(i: map.map.count - oldI - 1, j: oldJ), to: to)
+        guard let point = path.first else { return }
+        let i = map.map.count - point.i - 1
+        let j = point.j
 
         map.map[map.map.count - i - 1][j] = map.map[map.map.count - i - 1][j] | type.rawValue
 
         let newPosition = CGPoint(x: CGFloat(j) * map.tileSize.width + map.tileSize.width / 2 - parent!.frame.width / 2, y: CGFloat(i) * map.tileSize.height + map.tileSize.height / 2 - parent!.frame.height / 2)
 
-        run(SKAction.sequence([
-            SKAction.move(to: newPosition, duration: 0.5),
-            SKAction.run { [weak self] in
-                self?.move(map: map)
-            }
-        ]))
+        run(SKAction.move(to: newPosition, duration: 0.5))
     }
 
     required init?(coder aDecoder: NSCoder) {

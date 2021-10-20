@@ -10,5 +10,5 @@ import Foundation
 protocol Algorithm {
     var name: String { get }
 
-    func calculatePath(map: [[UInt32]], pacmanPosition: Point, ghostPosition: Point) -> [Point]
+    func calculatePath(map: [[UInt32]], from: Point, to: Point) -> [Point]
 }
